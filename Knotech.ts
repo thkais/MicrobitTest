@@ -1,16 +1,36 @@
 
+enum Kmotor {
+    Links,
+    Rechts,
+    Beide
+}
+enum Kdir {
+    Vor,
+    Zurück
+}
 
-//% color="#AA278D"
-//% groups="['Knobi']"
-//% weight=100
-namespace Knotech {
+
+//% color="#ff0000" icon="\uf0a4"
+namespace Knotec {
+
     //% block
-    export function Motor() {
+    export function foo() {
 
     }
 
-    //% block="bar x = $x text = $text"
-    export function bar(x: number, text: string) {
+    //% block
+    export function foo1() {
+
+    }
+
+    //% block
+    export function foo2() {
+
+    }
+
+    //% block 
+    //% Speed.min=0 Speed.max=255
+    export function motor(Nr : Kmotor, Dir : Kdir, Speed : number){
 
     }
 }
