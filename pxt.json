@@ -9,7 +9,8 @@
     "files": [
         "README.md",
         "main.ts",
-        "Knotech.ts"
+        "Knotech.ts",
+        "Testfile.cpp"
     ],
     "testFiles": [
         "test.ts"
