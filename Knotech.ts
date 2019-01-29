@@ -1,12 +1,12 @@
 
-enum Kmotor {
-    Links,
-    Rechts,
-    Beide
+enum Motor {
+    Links = 1,
+    Rechts = 2,
+    Beide = 3
 }
-enum Kdir {
-    Vor,
-    Zurück
+enum Dir {
+    Vor = 0,
+    Zurück = 1
 }
 
 
@@ -30,7 +30,25 @@ namespace Knotech {
 
     //% block 
     //% Speed.min=0 Speed.max=255
-    export function motor(Nr : Kmotor, Dir : Kdir, Speed : number){
-
+    export function motor(nr: Motor, direction: Dir, speed: number) {
+        let buffer = pins.createBuffer(3);
+        
+        buffer[1] = direction;
+        buffer[2] = speed;
+        
+        switch(nr)
+        {
+            case 1:
+                buffer[0] = 0x00;
+                pins.i2cWriteBuffer(0x10, buffer);
+            break;
+            case 3:
+                buffer[0] = 0x00;
+                pins.i2cWriteBuffer(0x10, buffer);
+            case 2:
+                buffer[0] = 0x02;
+                pins.i2cWriteBuffer(0x10, buffer);
+            break;
+        }
     }
 }
