@@ -11,7 +11,7 @@ enum Kdir {
 
 
 //% color="#ff0000" icon="\uf0a4"
-namespace Knotec {
+namespace Knotech {
 
     //% block
     export function foo() {
