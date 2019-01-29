@@ -1,7 +1,7 @@
 
 
 //% color="#AA278D"
-//% groups="['Knotech']"
+//% groups="['Knobi']"
 //% weight=100
 namespace Knotech {
     //% block
