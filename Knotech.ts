@@ -28,7 +28,7 @@ namespace Knotech {
 
     }
 
-    //% block="Motor Stopp"
+    //% block
     export function motorStop(nr: Motor){
         motor(nr, 0, 0);
     }
