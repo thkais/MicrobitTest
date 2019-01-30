@@ -4,6 +4,12 @@ enum KMotor {
     Rechts = 2,
     Beide = 3
 }
+
+enum KSensor{
+    Links = 0,
+    Rechts = 1
+}
+
 enum KDir {
     Vor = 0,
     Zurück = 1
@@ -23,9 +29,13 @@ namespace Knotech {
 
     }
 
-    //% block
-    export function foo2() {
+    //% blockId=read_Patrol block="Read Patrol|%patrol"
+    //% patrol.fieldEditor="gridpicker" patrol.fieldOptions.columns=2 
+    export function readPatrol(sensor: number): number {
+        let buffer = pins.createBuffer(5);
 
+        pins.i2cReadBuffer(0x11, 5);
+        return buffer[sensor];
     }
 
     //% block
