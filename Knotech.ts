@@ -37,7 +37,6 @@ namespace Knotech {
         return buffer[sensor];
     }
 
-
     //% block
     export function motorStop(nr: KMotor) {
         motor(nr, 0, 0);
