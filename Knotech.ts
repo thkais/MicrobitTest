@@ -31,9 +31,9 @@ namespace Knotech {
 
     //% block
     export function readSensor(sensor: number): number {
-        let buffer = pins.createBuffer(5);
+        //let buffer = pins.createBuffer(5);
 
-        pins.i2cReadBuffer(0x11, 5);
+        let buffer = pins.i2cReadBuffer(0x11, 5);
         return buffer[sensor];
     }
 
