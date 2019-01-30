@@ -28,7 +28,12 @@ namespace Knotech {
 
     }
 
-    //% block 
+    //% block="Motor Stopp"
+    export function motorStop(nr: Motor){
+        motor(nr, 0, 0);
+    }
+
+    //% block="Motor"
     //% speed.min=0 speed.max=255
     export function motor(nr: Motor, direction: Dir, speed: number) {
         let buffer = pins.createBuffer(3);
