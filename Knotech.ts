@@ -5,7 +5,7 @@ enum KMotor {
     Beide = 3
 }
 
-enum KSensor{
+enum KSensor {
     Links = 0,
     Rechts = 1
 }
@@ -29,9 +29,8 @@ namespace Knotech {
 
     }
 
-    //% blockId=read_Patrol block="Read Patrol|%patrol"
-    //% patrol.fieldEditor="gridpicker" patrol.fieldOptions.columns=2 
-    export function readPatrol(sensor: number): number {
+    //% block
+        export function readSensor(sensor: number): number {
         let buffer = pins.createBuffer(5);
 
         pins.i2cReadBuffer(0x11, 5);
