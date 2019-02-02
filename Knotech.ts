@@ -21,6 +21,7 @@ enum KDir {
 //% color="#ff0000" icon="\uf0a4"
 namespace Knotech {
 
+    // test
     serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
         basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
     })
