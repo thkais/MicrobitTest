@@ -20,31 +20,31 @@ enum KDir {
 
 
 // Init serial connection
-    serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
+serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
 
 //% color="#ff0000" icon="\uf0a4"
 namespace Knotech {
-  
+
     // Eventhandler for serial data
     serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
         basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
     })
 
-//    function KInit(){
-//        if (KInitialized != 1)
-//        {
-//            serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
-//            KInitialized = 1;
-//        }
-//    }    
+    //    function KInit(){
+    //        if (KInitialized != 1)
+    //        {
+    //            serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
+    //            KInitialized = 1;
+    //        }
+    //    }    
 
     //% block
-    export function sendSerial(text: string){
-       // KInit();
+    export function sendSerial(text: string) {
+        // KInit();
         serial.writeLine(text);
-        
+
     }
-    
+
     //% block
     export function test(address: number): number {
         let buffer = pins.i2cReadBuffer(address, 1);
