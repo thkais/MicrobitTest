@@ -28,19 +28,34 @@ namespace Knotech {
     //% block
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x11, 1);
-        if (sensor == 0){
+        if (sensor == 0) {
             buffer[0] &= 0x02;
         }
-        if (sensor == 1){
+        if (sensor == 1) {
             buffer[0] &= 0x01;
         }
-        if (buffer[0] != 0){
+        if (buffer[0] != 0) {
             return true;
         }
         else {
             return false;
         }
     }
+
+    serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+        basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
+    })
+    basic.forever(() => {
+        basic.showString(serial.readLine())
+        basic.showString(serial.readString())
+        basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
+    })
+
+    serial.redirect(
+        SerialPin.C16,
+        SerialPin.C17,
+        BaudRate.BaudRate56700
+    )
 
     //% block
     export function readSensor(sensor: number): number {
