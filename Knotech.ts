@@ -35,6 +35,7 @@ namespace Knotech {
 
     //% block
     export function sendSerial(text: string){
+        KInit();
         serial.writeLine(text);
     }
     
