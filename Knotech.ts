@@ -1,4 +1,6 @@
 
+let KInitialized = 0
+
 enum KMotor {
     Links = 1,
     Rechts = 2,
@@ -19,6 +21,23 @@ enum KDir {
 //% color="#ff0000" icon="\uf0a4"
 namespace Knotech {
 
+    //serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+    //    basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
+    //})
+
+    function KInit(){
+        if (KInitialized != 1)
+        {
+            serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
+            KInitialized = 1;
+        }
+    }    
+
+    //% block
+    export function sendSerial(text: string){
+        serial.writeLine(text);
+    }
+    
     //% block
     export function test(address: number): number {
         let buffer = pins.i2cReadBuffer(address, 1);
@@ -41,21 +60,6 @@ namespace Knotech {
             return false;
         }
     }
-
-    serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-        basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
-    })
-    basic.forever(() => {
-        basic.showString(serial.readLine())
-        basic.showString(serial.readString())
-        basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
-    })
-
-    serial.redirect(
-        SerialPin.C16,
-        SerialPin.C17,
-        BaudRate.BaudRate56700
-    )
 
     //% block
     export function readSensor(sensor: number): number {
