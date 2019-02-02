@@ -20,13 +20,14 @@ enum KDir {
 namespace Knotech {
 
     //% block
-    export function foo() {
-
+    export function test(address: number): number {
+        let buffer = pins.i2cReadBuffer(address, 1);
+        return buffer[0];
     }
 
     //% block
-    export function readLineSensor (sensor: KSensor): number{
-        let buffer = pins.i2cReadBuffer(0x11,1);
+    export function readLineSensor(sensor: KSensor): number {
+        let buffer = pins.i2cReadBuffer(0x11, 1);
         return buffer[0];
     }
 
