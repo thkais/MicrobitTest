@@ -21,9 +21,9 @@ enum KDir {
 //% color="#ff0000" icon="\uf0a4"
 namespace Knotech {
 
-    //serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-    //    basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
-    //})
+    serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+        basic.showString(serial.readUntil(serial.delimiters(Delimiters.NewLine)))
+    })
 
     function KInit(){
         if (KInitialized != 1)
