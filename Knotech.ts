@@ -26,9 +26,20 @@ namespace Knotech {
     }
 
     //% block
-    export function readLineSensor(sensor: KSensor): number {
+    export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x11, 1);
-        return buffer[0];
+        if (sensor == 0){
+            buffer[0] &= 0x02;
+        }
+        if (sensor == 1){
+            buffer[0] &= 0x01;
+        }
+        if (buffer[0] != 0){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     //% block
