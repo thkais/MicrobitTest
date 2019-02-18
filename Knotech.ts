@@ -1,4 +1,5 @@
 let KInitialized = 0
+let KLedState = 0;
 
 enum KMotor {
     Links = 1,
@@ -14,6 +15,11 @@ enum KSensor {
 enum KDir {
     Vor = 0,
     Zurück = 1
+}
+
+enum KState {
+    Aus = 0,
+    An = 1
 }
 
 
@@ -42,9 +48,31 @@ namespace Knotech {
     }
 
     //% block
-    export function sendSerial(text: string) {
-        KInit();
-        serial.writeLine(text);
+    export function SetLed(led : KSensor, state : KState ) {
+        let buffer = pins.createBuffer(2);
+        buffer[0] = 0;      // SubAddress of LEDs
+        //buffer[1]  Bit 0/1 = state of LEDs
+        switch (led){
+            case KSensor.Links:
+                if (state == KState.An){
+                    KLedState |= 0x01;
+                }
+                else {
+                    KLedState &= 0xFE;
+                }
+            break;
+            case KSensor.Rechts:
+                if (state == KState.An){
+                    KLedState |= 0x02;
+                }
+                else {
+                    KLedState &= 0xFD;
+                }
+
+            break;
+        }
+        buffer[1] = KLedState;
+        pins.i2cWriteBuffer(0x21, buffer);
     }
 
     //% block
