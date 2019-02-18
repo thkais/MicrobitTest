@@ -55,7 +55,7 @@ namespace Knotech {
 
     //% block
     export function readLineSensor(sensor: KSensor): boolean {
-        let buffer = pins.i2cReadBuffer(0x11, 1);
+        let buffer = pins.i2cReadBuffer(0x21, 1);
         if (sensor == 0) {
             buffer[0] &= 0x02;
         }
@@ -74,7 +74,7 @@ namespace Knotech {
     export function readSensor(sensor: number): number {
         //let buffer = pins.createBuffer(5);
 
-        let buffer = pins.i2cReadBuffer(0x11, 5);
+        let buffer = pins.i2cReadBuffer(0x21, 5);
         return buffer[sensor];
     }
 
@@ -94,14 +94,14 @@ namespace Knotech {
         switch (nr) {
             case 1:
                 buffer[0] = 0x00;
-                pins.i2cWriteBuffer(0x10, buffer);
+                pins.i2cWriteBuffer(0x20, buffer);
                 break;
             case 3:
                 buffer[0] = 0x00;
-                pins.i2cWriteBuffer(0x10, buffer);
+                pins.i2cWriteBuffer(0x20, buffer);
             case 2:
                 buffer[0] = 0x02;
-                pins.i2cWriteBuffer(0x10, buffer);
+                pins.i2cWriteBuffer(0x20, buffer);
                 break;
         }
     }
