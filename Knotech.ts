@@ -98,7 +98,7 @@ namespace Knotech {
         }
     }
 
-    //% block="Lese Sensor Nr. $sensor"
+    //% block="Lese Sensor Nr. %sensor"
     export function readSensor(sensor: number): number {
         //let buffer = pins.createBuffer(5);
 
