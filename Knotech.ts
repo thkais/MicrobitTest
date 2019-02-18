@@ -21,18 +21,18 @@ enum KDir {
 namespace Knotech {
 
     // Eventhandler for serial data
-    serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-        let buffer = serial.readUntil(serial.delimiters(Delimiters.NewLine));
-        let data = parseInt(buffer.substr(1));
-        switch (buffer[0]) {
-            case 'A':
-                basic.showString("a");
-                break;
-            case 'B':
-                basic.showString("b");
-                break;
-        }
-    })
+    //serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+    //    let buffer = serial.readUntil(serial.delimiters(Delimiters.NewLine));
+    //    let data = parseInt(buffer.substr(1));
+    //    switch (buffer[0]) {
+    //        case 'A':
+    //            basic.showString("a");
+    //            break;
+    //        case 'B':
+    //            basic.showString("b");
+    //            break;
+    //    }
+    //})
 
     function KInit() {
         if (KInitialized != 1) {
