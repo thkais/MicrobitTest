@@ -24,20 +24,19 @@ namespace Knotech {
     serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
         let buffer = serial.readUntil(serial.delimiters(Delimiters.NewLine));
         let data = parseInt(buffer.substr(1));
-        switch(buffer[0])
-        {
+        switch (buffer[0]) {
             case 'A':
                 basic.showString("a");
-            break;
+                break;
             case 'B':
                 basic.showString("b");
-            break;
+                break;
         }
     })
 
     function KInit() {
         if (KInitialized != 1) {
-            serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
+            //serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
             KInitialized = 1;
         }
     }
