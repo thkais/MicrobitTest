@@ -81,7 +81,7 @@ namespace Knotech {
         return buffer[0];
     }
 
-    //% block
+    //% block="Liniensensor $sensor"
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
         if (sensor == KSensor.Links) {
@@ -98,7 +98,7 @@ namespace Knotech {
         }
     }
 
-    //% block
+    //% block="Lese Sensor Nr. $sensor"
     export function readSensor(sensor: number): number {
         //let buffer = pins.createBuffer(5);
 
