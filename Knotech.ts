@@ -47,29 +47,29 @@ namespace Knotech {
         }
     }
 
-    //% block
-    export function SetLed(led : KSensor, state : KState ) {
+    //% block="Setze LED $led auf $state"
+    export function SetLed(led: KSensor, state: KState) {
         let buffer = pins.createBuffer(2);
         buffer[0] = 0;      // SubAddress of LEDs
         //buffer[1]  Bit 0/1 = state of LEDs
-        switch (led){
+        switch (led) {
             case KSensor.Links:
-                if (state == KState.An){
+                if (state == KState.An) {
                     KLedState |= 0x01;
                 }
                 else {
                     KLedState &= 0xFE;
                 }
-            break;
+                break;
             case KSensor.Rechts:
-                if (state == KState.An){
+                if (state == KState.An) {
                     KLedState |= 0x02;
                 }
                 else {
                     KLedState &= 0xFD;
                 }
 
-            break;
+                break;
         }
         buffer[1] = KLedState;
         pins.i2cWriteBuffer(0x21, buffer);
@@ -106,13 +106,13 @@ namespace Knotech {
         return buffer[sensor];
     }
 
-    //% block
+    //% block="Stoppe Motor $nr"
     export function motorStop(nr: KMotor) {
         motor(nr, 0, 0);
     }
 
     //% speed.min=0 speed.max=255
-    //% block
+    //% block="Motor $nr Richtung $direction Geschwindigkeit $speed"
     export function motor(nr: KMotor, direction: KDir, speed: number) {
         let buffer = pins.createBuffer(3);
 
