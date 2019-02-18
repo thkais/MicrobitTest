@@ -56,10 +56,10 @@ namespace Knotech {
     //% block
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
-        if (sensor == 0) {
+        if (sensor == KSensor.Links) {
             buffer[0] &= 0x02;
         }
-        if (sensor == 1) {
+        if (sensor == KSensor.Rechts) {
             buffer[0] &= 0x01;
         }
         if (buffer[0] != 0) {
