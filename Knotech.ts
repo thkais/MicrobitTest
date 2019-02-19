@@ -97,6 +97,10 @@ namespace Knotech {
             return false;
         }
     }
+    export function Ultraschall(): number{
+        let buffer = pins.i2cReadBuffer(0x21,3);
+        return 256 * buffer[1] + buffer[2];
+    }
     //="Lese Sensor Nr. %sensor"
     //% block
     export function readSensor(sensor: number): number {
