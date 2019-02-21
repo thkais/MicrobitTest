@@ -23,8 +23,8 @@ enum KState {
 }
 
 
-//% color="#ff0000" icon="\uf018"
-namespace Knotech {
+//% color="#ff0000" icon="\uf544"
+namespace Callibot {
 
     // Eventhandler for serial data
     //serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
