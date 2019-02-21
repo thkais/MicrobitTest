@@ -47,7 +47,7 @@ namespace Knotech {
         }
     }
     //="Setze LED $led auf $state"
-    //% blockId=K_SetLed block="Schalte LED |%KSensor auf|%KState"
+    //% blockId=K_SetLed block="Schalte LED |%KSensor|auf|%KState"
     export function SetLed(led: KSensor, state: KState) {
         let buffer = pins.createBuffer(2);
         buffer[0] = 0;      // SubAddress of LEDs
