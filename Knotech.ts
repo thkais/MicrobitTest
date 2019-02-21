@@ -75,14 +75,14 @@ namespace Callibot {
         buffer[1] = KLedState;
         pins.i2cWriteBuffer(0x21, buffer);
     }
-
+    //% weight=1
     //% block
     export function test(address: number): number {
         let buffer = pins.i2cReadBuffer(address, 1);
         return buffer[0];
     }
     //="Liniensensor $sensor"
-    //% blockId=K_readLineSensor="Liniensensor |%KSensor"
+    //% blockId block=K_readLineSensor="Liniensensor |%sensor"
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
         if (sensor == KSensor.Links) {
@@ -104,6 +104,8 @@ namespace Callibot {
         let buffer = pins.i2cReadBuffer(0x21, 3);
         return 256 * buffer[1] + buffer[2];
     }
+
+    //% weight=1
     //="Lese Sensor Nr. %sensor"
     //% block
     export function readSensor(sensor: number): number {
