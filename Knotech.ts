@@ -23,7 +23,7 @@ enum KState {
 }
 
 
-//% color="#ff0000" icon="\uf544"
+//% color="#ff0000" icon="\uf29b"
 namespace Callibot {
 
     // Eventhandler for serial data
