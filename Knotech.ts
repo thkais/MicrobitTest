@@ -82,7 +82,7 @@ namespace Callibot {
         return buffer[0];
     }
     //="Liniensensor $sensor"
-    //% blockId block=K_readLineSensor="Liniensensor |%sensor"
+    //% blockId K_readLineSensor block="Liniensensor |%sensor"
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
         if (sensor == KSensor.Links) {
