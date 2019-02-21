@@ -13,8 +13,8 @@ enum KSensor {
 }
 
 enum KDir {
-    Vor = 0,
-    Zurück = 1
+    Vorwärts = 0,
+    Rückwärts = 1
 }
 
 enum KState {
@@ -82,7 +82,7 @@ namespace Callibot {
         return buffer[0];
     }
     //="Liniensensor $sensor"
-    //% block
+    //% blockId=K_readLineSensor="Liniensensor |%sensor"
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
         if (sensor == KSensor.Links) {
@@ -98,7 +98,7 @@ namespace Callibot {
             return false;
         }
     }
-    //% block
+    //% blockId=K_Ultraschall="Entfernung"
     export function Ultraschall(): number {
         let buffer = pins.i2cReadBuffer(0x21, 3);
         return 256 * buffer[1] + buffer[2];
@@ -112,13 +112,13 @@ namespace Callibot {
         return buffer[sensor];
     }
     //="Stoppe Motor $nr"
-    //% block
+    //% blockId=K_motorStop="Stoppe Motor |%nr"
     export function motorStop(nr: KMotor) {
         motor(nr, 0, 0);
     }
     //="Motor $nr Richtung $direction Geschwindigkeit $speed"
     //% speed.min=0 speed.max=255
-    //% block
+    //% blockId=K_motor="Schalte Motor |%nr|%direction|Geschwindigkeit|%speed"
     export function motor(nr: KMotor, direction: KDir, speed: number) {
         let buffer = pins.createBuffer(3);
 
