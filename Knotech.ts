@@ -23,7 +23,7 @@ enum KState {
 }
 
 
-//% color="#ff0000" icon="\uf0a4"
+//% color="#ff0000" icon="\uf018"
 namespace Knotech {
 
     // Eventhandler for serial data
