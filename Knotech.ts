@@ -82,7 +82,7 @@ namespace Callibot {
         return buffer[0];
     }
     //="Liniensensor $sensor"
-    //% blockId=K_readLineSensor="Liniensensor |%sensor"
+    //% blockId=K_readLineSensor="Liniensensor |%KSensor"
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
         if (sensor == KSensor.Links) {
@@ -98,8 +98,8 @@ namespace Callibot {
             return false;
         }
     }
-    //% blockId=K_Ultraschall="Entfernung"
-    export function Ultraschall(): number {
+    //% block
+    export function Entfernung(): number {
         let buffer = pins.i2cReadBuffer(0x21, 3);
         return 256 * buffer[1] + buffer[2];
     }
@@ -112,13 +112,13 @@ namespace Callibot {
         return buffer[sensor];
     }
     //="Stoppe Motor $nr"
-    //% blockId=K_motorStop="Stoppe Motor |%nr"
+    //% blockId=K_motorStop="Stoppe Motor |%KMotor"
     export function motorStop(nr: KMotor) {
         motor(nr, 0, 0);
     }
     //="Motor $nr Richtung $direction Geschwindigkeit $speed"
     //% speed.min=0 speed.max=255
-    //% blockId=K_motor="Schalte Motor |%nr|%direction|Geschwindigkeit|%speed"
+    //% blockId=K_motor="Schalte Motor |%KMotor| |%KDir| Geschwindigkeit |%number"
     export function motor(nr: KMotor, direction: KDir, speed: number) {
         let buffer = pins.createBuffer(3);
 
