@@ -79,65 +79,64 @@ namespace Callibot {
 
     //% intensity.min=0 intensity.max=8
     //% blockId=K_RGB_LED block="Schalte Beleuchtung |%led| Farbe|%color| Helligkeit|%intensity|"
-    export function setRgbLed(led: KRgbLed, color: KRgbColor, intensity: number)
-    {
+    export function setRgbLed(led: KRgbLed, color: KRgbColor, intensity: number) {
         let tColor = 0;
         let index = 0;
         let len = 0;
 
-        intensity = (intensity * 2 - 1) * 16;
+        if (intensity > 0){
+            intensity = (intensity * 2 - 1) * 16;
+        }
 
-        switch(color)
-        {
+        switch (color) {
             case KRgbColor.Rot:
                 tColor = 0x02;
-            break;
+                break;
             case KRgbColor.Grün:
                 tColor = 0x01;
-            break;
+                break;
             case KRgbColor.Blau:
                 tColor = 0x04;
-            break;
+                break;
             case KRgbColor.Gelb:
                 tColor = 0x03;
-            break;
+                break;
             case KRgbColor.Türkis:
                 tColor = 0x05;
-            break;
+                break;
             case KRgbColor.Violett:
                 tColor = 0x06;
-            break;
+                break;
             case KRgbColor.Weiß:
                 tColor = 0x07;
-            break;
+                break;
         }
-        switch (led)
-        {
+        switch (led) {
             case KRgbLed.LH:
-                index = 0;
-                len = 2;
-                break;
-            case KRgbLed.RH:
-                index = 1;
-                len = 2;
-                break;
-            case KRgbLed.LV:
                 index = 2;
                 len = 2;
                 break;
-            case KRgbLed.LV:
+            case KRgbLed.RH:
                 index = 3;
                 len = 2;
                 break;
+            case KRgbLed.LV:
+                index = 1;
+                len = 2;
+                break;
+            case KRgbLed.RV:
+                index = 4;
+                len = 2;
+                break;
             case KRgbLed.All:
-                index = 0;
+                index = 1;
                 len = 5;
                 break;
         }
         let buffer = pins.createBuffer(len);
         buffer[0] = index;
         buffer[1] = intensity | tColor;
-        if (len == 5){
+        if (len == 5) {
             buffer[2] = buffer[1];
             buffer[3] = buffer[1];
             buffer[4] = buffer[1];
