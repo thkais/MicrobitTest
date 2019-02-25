@@ -48,10 +48,22 @@ enum KState {
 
 //% color="#ff0000" icon="\uf29b"
 namespace Callibot {
+    
+    function KInit() {
+        if (KInitialized != 1) {
+            setLed(KSensor.Links, KState.Aus);
+            setLed(KSensor.Links, KState.Aus);
+            motorStop(KMotor.Beide);
+            setRgbLed(KRgbLed.All, KRgbColor.Rot, 0);
+            KInitialized = 1;
+        }
+    }
+    
 
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
-    export function SetLed(led: KSensor, state: KState) {
+    export function setLed(led: KSensor, state: KState) {
         let buffer = pins.createBuffer(2);
+        KInit();
         buffer[0] = 0;      // SubAddress of LEDs
         //buffer[1]  Bit 0/1 = state of LEDs
         switch (led) {
@@ -84,6 +96,7 @@ namespace Callibot {
         let index = 0;
         let len = 0;
 
+        KInit();
         if (intensity > 0){
             intensity = (intensity * 2 - 1) * 16;
         }
@@ -148,6 +161,7 @@ namespace Callibot {
     //% blockId K_readLineSensor block="Liniensensor |%sensor"
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
+        KInit();
         if (sensor == KSensor.Links) {
             buffer[0] &= 0x02;
         }
@@ -165,6 +179,7 @@ namespace Callibot {
     //% blockId=K_entfernung block="Entfernung (mm)" blockGap=8
     export function entfernung(): number {
         let buffer = pins.i2cReadBuffer(0x21, 3);
+        KInit();
         return 256 * buffer[1] + buffer[2];
     }
 
@@ -179,7 +194,7 @@ namespace Callibot {
     //% blockId=K_motor block="Schalte Motor |%KMotor| |%KDir| mit |%number"
     export function motor(nr: KMotor, direction: KDir, speed: number) {
         let buffer = pins.createBuffer(3);
-
+        KInit();
         buffer[1] = direction;
         buffer[2] = speed;
 
