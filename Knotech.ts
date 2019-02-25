@@ -12,6 +12,29 @@ enum KSensor {
     Rechts = 1
 }
 
+enum KRgbLed {
+    //% block="Links vorne"
+    LV,
+    //% block="Rechts vorne"
+    RV,
+    //% block="Links hinten"
+    LH,
+    //% block="Rechts hinten"
+    RH,
+    //% block = "Alle"
+    All
+}
+
+enum KRgbColor {
+    Rot,
+    Grün,
+    Blau,
+    Gelb,
+    Violett,
+    Türkis,
+    Weiß
+}
+
 enum KDir {
     Vorwärts = 0,
     Rückwärts = 1
@@ -26,28 +49,6 @@ enum KState {
 //% color="#ff0000" icon="\uf29b"
 namespace Callibot {
 
-    // Eventhandler for serial data
-    //serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-    //    let buffer = serial.readUntil(serial.delimiters(Delimiters.NewLine));
-    //    let data = parseInt(buffer.substr(1));
-    //    switch (buffer[0]) {
-    //        case 'A':
-    //            basic.showString("a");
-    //            break;
-    //        case 'B':
-    //            basic.showString("b");
-    //            break;
-    //    }
-    //})
-
-    function KInit() {
-        if (KInitialized != 1) {
-            //serial.redirect(SerialPin.C16, SerialPin.C17, BaudRate.BaudRate56700);
-            KInitialized = 1;
-        }
-    }
-    //="Setze LED $led auf $state"
-    // blockId=K_SetLed block="Schalte LED |%KSensor|auf|%KState"
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
     export function SetLed(led: KSensor, state: KState) {
         let buffer = pins.createBuffer(2);
@@ -75,12 +76,13 @@ namespace Callibot {
         buffer[1] = KLedState;
         pins.i2cWriteBuffer(0x21, buffer);
     }
-    //% weight=1
-    //% block
-    export function test(address: number): number {
-        let buffer = pins.i2cReadBuffer(address, 1);
-        return buffer[0];
+
+    //% blockId=K_RGB_LED block="Schalte Beleuchtung |%KSensor| |%KState"
+    export function setRgbLed(led: KRgbLed, color: KRgbColor, intensity: number)
+    {
+
     }
+
     //="Liniensensor $sensor"
     //% blockId K_readLineSensor block="Liniensensor |%sensor"
     export function readLineSensor(sensor: KSensor): boolean {
@@ -105,15 +107,6 @@ namespace Callibot {
         return 256 * buffer[1] + buffer[2];
     }
 
-    //% weight=1
-    //="Lese Sensor Nr. %sensor"
-    //% block
-    export function readSensor(sensor: number): number {
-        //let buffer = pins.createBuffer(5);
-
-        let buffer = pins.i2cReadBuffer(0x21, 5);
-        return buffer[sensor];
-    }
     //="Stoppe Motor $nr"
     //% blockId=K_motorStop block="Stoppe Motor %nr"
     export function motorStop(nr: KMotor) {
