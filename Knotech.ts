@@ -60,10 +60,10 @@ namespace Callibot {
     function KInit() {
         if (KInitialized != 1) {
             KInitialized = 1;
-            //setLed(KSensor.Links, KState.Aus);
-            //setLed(KSensor.Rechts, KState.Aus);
+            setLed(KSensor.Links, KState.Aus);
+            setLed(KSensor.Rechts, KState.Aus);
             motorStop(KMotor.Beide, KStop.Bremsen);
-            //setRgbLed(KRgbLed.All, KRgbColor.Rot, 0);
+            setRgbLed(KRgbLed.All, KRgbColor.Rot, 0);
         }
     }
 
