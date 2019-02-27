@@ -67,6 +67,25 @@ namespace Callibot {
         }
     }
     
+    function writeMotor(nr: KMotor, direction: KDir, speed: number) {
+        let buffer = pins.createBuffer(3);
+        KInit();
+        buffer[1] = direction;
+        buffer[2] = speed;
+        switch (nr) {
+            case 1:
+                buffer[0] = 0x00;
+                pins.i2cWriteBuffer(0x20, buffer);
+                break;
+            case 3:
+                buffer[0] = 0x00;
+                pins.i2cWriteBuffer(0x20, buffer);
+            case 2:
+                buffer[0] = 0x02;
+                pins.i2cWriteBuffer(0x20, buffer);
+                break;
+        }
+    }
 
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
     export function setLed(led: KSensor, state: KState) {
@@ -214,23 +233,5 @@ namespace Callibot {
         writeMotor(nr, direction, speed * 2.55);
     }
 
-    function writeMotor(nr: KMotor, direction: KDir, speed: number){
-        let buffer = pins.createBuffer(3);
-        KInit();
-        buffer[1] = direction;
-        buffer[2] = speed;
-        switch (nr) {
-            case 1:
-                buffer[0] = 0x00;
-                pins.i2cWriteBuffer(0x20, buffer);
-                break;
-            case 3:
-                buffer[0] = 0x00;
-                pins.i2cWriteBuffer(0x20, buffer);
-            case 2:
-                buffer[0] = 0x02;
-                pins.i2cWriteBuffer(0x20, buffer);
-                break;
-        }
-    }
+    
 }
