@@ -1,5 +1,6 @@
+
 let KInitialized = 0
-let KLedState = 0;
+let KLedState = 0
 
 enum KMotor {
     Links = 1,
@@ -58,11 +59,11 @@ namespace Callibot {
     
     function KInit() {
         if (KInitialized != 1) {
+            KInitialized = 1;
             setLed(KSensor.Links, KState.Aus);
-            setLed(KSensor.Links, KState.Aus);
+            setLed(KSensor.Rechts, KState.Aus);
             motorStop(KMotor.Beide, KStop.Bremsen);
             setRgbLed(KRgbLed.All, KRgbColor.Rot, 0);
-            KInitialized = 1;
         }
     }
     
