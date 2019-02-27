@@ -124,6 +124,12 @@ namespace Callibot {
         let len = 0;
 
         KInit();
+        if (intensity < 0){
+            intensity = 0;
+        }
+        if (intensity > 8){
+            intensity = 8;
+        }
         if (intensity > 0){
             intensity = (intensity * 2 - 1) * 16;
         }
