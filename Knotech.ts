@@ -219,7 +219,7 @@ namespace Callibot {
     //="Stoppe Motor $nr"
     //% blockId=K_motorStop block="Stoppe Motor |%nr| |%mode"
     export function motorStop(nr: KMotor, mode: KStop) {
-        if (mode = KStop.Frei) {
+        if (mode == KStop.Frei) {
             writeMotor(nr, 0, 1);
         }
         else {
