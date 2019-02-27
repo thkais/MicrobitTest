@@ -7,6 +7,13 @@ enum KMotor {
     Beide = 3
 }
 
+enum KStop {
+    //% block="auslaufend"
+    Frei = 1,
+    //% block="bremsend"
+    Bremsen = 2
+}
+
 enum KSensor {
     Links = 0,
     Rechts = 1
@@ -53,7 +60,7 @@ namespace Callibot {
         if (KInitialized != 1) {
             setLed(KSensor.Links, KState.Aus);
             setLed(KSensor.Links, KState.Aus);
-            motorStop(KMotor.Beide);
+            motorStop(KMotor.Beide, KStop.Bremsen);
             setRgbLed(KRgbLed.All, KRgbColor.Rot, 0);
             KInitialized = 1;
         }
@@ -184,20 +191,33 @@ namespace Callibot {
     }
 
     //="Stoppe Motor $nr"
-    //% blockId=K_motorStop block="Stoppe Motor %nr"
-    export function motorStop(nr: KMotor) {
-        motor(nr, 0, 0);
+    //% blockId=K_motorStop block="Stoppe Motor |%nr| |%mode"
+    export function motorStop(nr: KMotor, mode: KStop) {
+        if (mode = KStop.Frei){
+            writeMotor(nr, 0, 1);
+        }
+        else {
+            writeMotor(nr, 0, 0);
+        }
     }
-    //="Motor $nr Richtung $direction Geschwindigkeit $speed"
-    // blockId=block_dual_motor block="motor %motor|at %percent"
-    //% speed.min=0 speed.max=255
-    //% blockId=K_motor block="Schalte Motor |%KMotor| |%KDir| mit |%number"
+
+    //% speed.min=5 speed.max=100
+    //% blockId=K_motor block="Schalte Motor |%KMotor| |%KDir| mit |%number| %"
     export function motor(nr: KMotor, direction: KDir, speed: number) {
+        if (speed > 100){
+            speed = 100
+        }
+        if (speed < 0){
+            speed = 0
+        }
+        writeMotor(nr, direction, speed * 2.55);
+    }
+
+    function writeMotor(nr: KMotor, direction: KDir, speed: number){
         let buffer = pins.createBuffer(3);
         KInit();
         buffer[1] = direction;
         buffer[2] = speed;
-
         switch (nr) {
             case 1:
                 buffer[0] = 0x00;
