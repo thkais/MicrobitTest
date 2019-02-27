@@ -54,7 +54,7 @@ enum KState {
 }
 
 
-//% color="#ff0000" icon="\uf29b"
+//% color="#ff0000" icon="\uf013"
 namespace Callibot {
     
     function KInit() {
