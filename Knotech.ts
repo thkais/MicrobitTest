@@ -230,7 +230,7 @@ namespace Callibot {
         if (speed < 0){
             speed = 0
         }
-        speed = speed * 2.55
+        speed = speed * 255 / 100
         writeMotor(nr, direction, speed);
     }
 
