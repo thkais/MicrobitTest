@@ -3,21 +3,21 @@ let KInitialized = 0
 let KLedState = 0
 
 enum KMotor {
-    Links = 1,
-    Rechts = 2,
-    Beide = 3
+    links,
+    rechts,
+    beide
 }
 
 enum KStop {
     //% block="auslaufend"
-    Frei = 1,
+    Frei,
     //% block="bremsend"
-    Bremsen = 2
+    Bremsen
 }
 
 enum KSensor {
-    Links = 0,
-    Rechts = 1
+    links,
+    rechts
 }
 
 enum KRgbLed {
@@ -34,23 +34,23 @@ enum KRgbLed {
 }
 
 enum KRgbColor {
-    Rot,
-    Grün,
-    Blau,
-    Gelb,
-    Violett,
-    Türkis,
-    Weiß
+    rot,
+    grün,
+    blau,
+    gelb,
+    violett,
+    türkis,
+    weiß
 }
 
 enum KDir {
-    Vorwärts = 0,
-    Rückwärts = 1
+    vorwärts = 0,
+    rückwärts = 1
 }
 
 enum KState {
-    Aus = 0,
-    An = 1
+    aus,
+    an
 }
 
 
@@ -60,10 +60,10 @@ namespace Callibot {
     function KInit() {
         if (KInitialized != 1) {
             KInitialized = 1;
-            setLed(KSensor.Links, KState.Aus);
-            setLed(KSensor.Rechts, KState.Aus);
-            motorStop(KMotor.Beide, KStop.Bremsen);
-            setRgbLed(KRgbLed.All, KRgbColor.Rot, 0);
+            setLed(KSensor.links, KState.aus);
+            setLed(KSensor.rechts, KState.aus);
+            motorStop(KMotor.beide, KStop.Bremsen);
+            setRgbLed(KRgbLed.All, KRgbColor.rot, 0);
         }
     }
 
@@ -73,18 +73,23 @@ namespace Callibot {
         buffer[1] = direction;
         buffer[2] = speed;
         switch (nr) {
-            case 1:
+            case KMotor.links:
                 buffer[0] = 0x00;
                 pins.i2cWriteBuffer(0x20, buffer);
                 break;
-            case 3:
+            case KMotor.beide:
                 buffer[0] = 0x00;
                 pins.i2cWriteBuffer(0x20, buffer);
-            case 2:
+            case KMotor.rechts:
                 buffer[0] = 0x02;
                 pins.i2cWriteBuffer(0x20, buffer);
                 break;
         }
+    }
+
+    //% blockId=K_Wait block="Warte bis |%state"
+    export function waitUntil(state: boolean) {
+        while (!state);
     }
 
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
@@ -94,16 +99,16 @@ namespace Callibot {
         buffer[0] = 0;      // SubAddress of LEDs
         //buffer[1]  Bit 0/1 = state of LEDs
         switch (led) {
-            case KSensor.Links:
-                if (state == KState.An) {
+            case KSensor.links:
+                if (state == KState.an) {
                     KLedState |= 0x01;
                 }
                 else {
                     KLedState &= 0xFE;
                 }
                 break;
-            case KSensor.Rechts:
-                if (state == KState.An) {
+            case KSensor.rechts:
+                if (state == KState.an) {
                     KLedState |= 0x02;
                 }
                 else {
@@ -135,25 +140,25 @@ namespace Callibot {
         }
 
         switch (color) {
-            case KRgbColor.Rot:
+            case KRgbColor.rot:
                 tColor = 0x02;
                 break;
-            case KRgbColor.Grün:
+            case KRgbColor.grün:
                 tColor = 0x01;
                 break;
-            case KRgbColor.Blau:
+            case KRgbColor.blau:
                 tColor = 0x04;
                 break;
-            case KRgbColor.Gelb:
+            case KRgbColor.gelb:
                 tColor = 0x03;
                 break;
-            case KRgbColor.Türkis:
+            case KRgbColor.türkis:
                 tColor = 0x05;
                 break;
-            case KRgbColor.Violett:
+            case KRgbColor.violett:
                 tColor = 0x06;
                 break;
-            case KRgbColor.Weiß:
+            case KRgbColor.weiß:
                 tColor = 0x07;
                 break;
         }
@@ -195,10 +200,10 @@ namespace Callibot {
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
         KInit();
-        if (sensor == KSensor.Links) {
+        if (sensor == KSensor.links) {
             buffer[0] &= 0x02;
         }
-        if (sensor == KSensor.Rechts) {
+        if (sensor == KSensor.rechts) {
             buffer[0] &= 0x01;
         }
         if (buffer[0] != 0) {
@@ -239,6 +244,4 @@ namespace Callibot {
         speed = speed * 255 / 100
         writeMotor(nr, direction, speed);
     }
-
-
 }
