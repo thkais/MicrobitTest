@@ -86,7 +86,7 @@ namespace Callibot {
                 break;
         }
     }
-    
+    //% blockId=K_Motor2 block="Beide Motoren |%KDir| |%number"
     function writeMotor2(direction: KDir, speed: number) {
         let buffer = pins.createBuffer(5);
         buffer[0] = 0x00;
