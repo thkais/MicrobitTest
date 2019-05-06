@@ -86,6 +86,16 @@ namespace Callibot {
                 break;
         }
     }
+    
+    function writeMotor2(direction: KDir, speed: number) {
+        let buffer = pins.createBuffer(5);
+        buffer[0] = 0x00;
+        buffer[1] = 0x00;
+        buffer[2] = 0x50;
+        buffer[3] = 0x01;
+        buffer[4] = 0x20;
+        pins.i2cWriteBuffer(0x20,buffer);
+    }
 
     //% blockId=K_Wait block="Warte bis |%state"
     export function waitUntil(state: boolean) {
