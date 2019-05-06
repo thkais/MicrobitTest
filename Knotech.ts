@@ -86,14 +86,14 @@ namespace Callibot {
                 break;
         }
     }
-    //% blockId=K_Motor2 block="Beide Motoren |%KDir| |%number"
-    function writeMotor2(direction: KDir, speed: number) {
+    //% blockId=K_Motor2 block="Beide Motoren |%direction| |%speed"
+    export function writeMotor2(direction: KDir, speed: number) {
         let buffer = pins.createBuffer(5);
         buffer[0] = 0x00;
-        buffer[1] = 0x00;
-        buffer[2] = 0x50;
-        buffer[3] = 0x01;
-        buffer[4] = 0x20;
+        buffer[1] = direction;
+        buffer[2] = speed;
+        buffer[3] = direction;
+        buffer[4] = speed;
         pins.i2cWriteBuffer(0x20,buffer);
     }
 
