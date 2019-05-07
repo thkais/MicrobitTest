@@ -55,7 +55,7 @@ enum KState {
 
 
 //% color="#ff0000" icon="\uf013"
-//% groups="['Motoren','Sensoren']"
+//% groups="['Motoren','Sensoren','others']"
 namespace Callibot {
 
     function KInit() {
@@ -235,6 +235,7 @@ namespace Callibot {
     }
 
     //="Stoppe Motor $nr"
+    //% group="Motoren"
     //% blockId=K_motorStop block="Stoppe Motor |%nr| |%mode"
     export function motorStop(nr: KMotor, mode: KStop) {
         if (mode == KStop.Frei) {
@@ -246,6 +247,7 @@ namespace Callibot {
     }
 
     //% speed.min=5 speed.max=100
+    //% group="Motoren"
     //% blockId=K_motor block="Schalte Motor |%KMotor| |%KDir| mit |%number| %"
     export function motor(nr: KMotor, direction: KDir, speed: number) {
         if (speed > 100) {
