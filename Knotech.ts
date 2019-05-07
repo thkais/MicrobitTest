@@ -55,6 +55,7 @@ enum KState {
 
 
 //% color="#ff0000" icon="\uf013"
+//% groups="['Motoren','Sensoren']"
 namespace Callibot {
 
     function KInit() {
@@ -86,6 +87,7 @@ namespace Callibot {
                 break;
         }
     }
+    //% group="Motoren"
     //% blockId=K_Motor2 block="Beide Motoren |%direction| |%speed"
     export function writeMotor2(direction: KDir, speed: number) {
         let buffer = pins.createBuffer(5);
@@ -94,14 +96,14 @@ namespace Callibot {
         buffer[2] = speed;
         buffer[3] = direction;
         buffer[4] = speed;
-        pins.i2cWriteBuffer(0x20,buffer);
+        pins.i2cWriteBuffer(0x20, buffer);
     }
 
     //% blockId=K_Wait block="Warte bis |%state"
     export function waitUntil(state: boolean) {
         while (!state);
     }
-
+    //% group="Sensoren"
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
     export function setLed(led: KSensor, state: KState) {
         let buffer = pins.createBuffer(2);
@@ -206,6 +208,7 @@ namespace Callibot {
     }
 
     //="Liniensensor $sensor"
+    //% group="Sensoren"
     //% blockId K_readLineSensor block="Liniensensor |%sensor"
     export function readLineSensor(sensor: KSensor): boolean {
         let buffer = pins.i2cReadBuffer(0x21, 1);
@@ -255,4 +258,4 @@ namespace Callibot {
         writeMotor(nr, direction, speed);
     }
 }
-    
+
