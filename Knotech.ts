@@ -55,7 +55,7 @@ enum KState {
 
 
 //% color="#ff0000" icon="\uf013"
-//% groups="['Motoren','Sensoren','others']"
+//% groups="['Motoren','Sensoren','LED']"
 namespace Callibot {
 
     function KInit() {
@@ -103,7 +103,7 @@ namespace Callibot {
     export function waitUntil(state: boolean) {
         while (!state);
     }
-    //% group="Sensoren"
+    //% group="LED"
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
     export function setLed(led: KSensor, state: KState) {
         let buffer = pins.createBuffer(2);
@@ -134,6 +134,7 @@ namespace Callibot {
     }
 
     //% intensity.min=0 intensity.max=8
+    //% group="LED"
     //% blockId=K_RGB_LED block="Schalte Beleuchtung |%led| Farbe|%color| Helligkeit|%intensity|"
     export function setRgbLed(led: KRgbLed, color: KRgbColor, intensity: number) {
         let tColor = 0;
@@ -227,6 +228,7 @@ namespace Callibot {
         }
     }
 
+    //% group="Sensoren"
     //% blockId=K_entfernung block="Entfernung (mm)" blockGap=8
     export function entfernung(): number {
         let buffer = pins.i2cReadBuffer(0x21, 3);
