@@ -368,14 +368,14 @@ namespace Callitest {
         while (1 == 1) {
             if (KFunkAktiv == 0){
                 if (MotorLinks < 0) {
-                    Callibot.motor(KMotor.rechts, KDir.vorwärts, Math.abs(MotorLinks))
+                    motor(KMotor.rechts, KDir.vorwärts, Math.abs(MotorLinks))
                 } else {
-                    Callibot.motor(KMotor.rechts, KDir.rückwärts, MotorLinks)
+                    motor(KMotor.rechts, KDir.rückwärts, MotorLinks)
                 }
                 if (MotorRechts < 0) {
-                    Callibot.motor(KMotor.links, KDir.vorwärts, Math.abs(MotorRechts))
+                    motor(KMotor.links, KDir.vorwärts, Math.abs(MotorRechts))
                 } else {
-                    Callibot.motor(KMotor.links, KDir.rückwärts, MotorRechts)
+                    motor(KMotor.links, KDir.rückwärts, MotorRechts)
                 }
                 basic.pause(1)
                 if (Zeit > 0) {
