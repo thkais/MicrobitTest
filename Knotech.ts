@@ -96,7 +96,6 @@ enum KCheck {
 }
 
 //% color="#FF0000" icon="\uf013" block="Calli:test"
-//% groups="['Motoren', 'LED', 'Sensoren', 'Warten', 'Steuerung']"
 namespace Callitest {
 
     function KInit() {
@@ -130,10 +129,12 @@ namespace Callitest {
         }
     }
 
+    /**
+    * Schaltet die Motoren ein
+    * Geschwindigkeit = 0...100%
+    */
     //% speed.min=5 speed.max=100
     //% blockId=K_motor block="Schalte Motor |%KMotor| |%KDir| mit |%number| %"
-    //% group="Motoren" 
-    //% weight=200
     export function motor(nr: KMotor, direction: KDir, speed: number) {
         if (speed > 100) {
             speed = 100
@@ -147,8 +148,6 @@ namespace Callitest {
 
     //="Stoppe Motor $nr"
     //% blockId=K_motorStop block="Stoppe Motor |%nr| |%mode"
-    //% group="Motoren"
-    //% weight=190
     export function motorStop(nr: KMotor, mode: KStop) {
         if (mode == KStop.Frei) {
             writeMotor(nr, 0, 1);
@@ -159,8 +158,6 @@ namespace Callitest {
     }
 
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
-    //% group="LED"
-    //% weight=100
     export function setLed(led: KMotor, state: KState) {
         let buffer = pins.createBuffer(2)
         KInit()
@@ -199,8 +196,6 @@ namespace Callitest {
 
     //% intensity.min=0 intensity.max=8
     //% blockId=K_RGB_LED block="Schalte Beleuchtung |%led| Farbe|%color| Helligkeit|%intensity|"
-    //% group="LED"
-    //% weight=90
     export function setRgbLed(led: KRgbLed, color: KRgbColor, intensity: number) {
         let tColor = 0;
         let index = 0;
@@ -277,8 +272,6 @@ namespace Callitest {
 
     //="Liniensensor $sensor"
     //% blockId K_readLineSensor block="Liniensensor |%sensor| |%status"
-    //% group="Sensoren"
-    //% weight=50
     export function readLineSensor(sensor: KSensor, status: KSensorStatus): boolean {
         let result = false
 
@@ -313,8 +306,6 @@ namespace Callitest {
     }
 
     //% blockId=K_entfernung block="Entfernung |%modus" blockGap=8
-    //% group="Sensoren"
-    //% weight=40
     export function entfernung(modus: KEinheit): number {
         let buffer = pins.i2cReadBuffer(0x21, 3)
         KInit()
@@ -328,8 +319,6 @@ namespace Callitest {
     }
 
     //% blockId=K_warte color="#0082E6" block="Warte bis |%sensor| |%check| |%value"
-    //% group="Warten"
-    //% weight=500
     export function warte(sensor: KSensorWait, check: KCheck, value: number) {
         let abbruch = 0
         let sensorValue = 0
@@ -375,16 +364,12 @@ namespace Callitest {
     }
 
     //% blockId=K_warte_LSensor color="#0082E6" block="Warte bis Liniensensor |%sensor| = |%status"
-    //% group="Warten"
-    //% weight=490
     export function warteLSensor(sensor: KSensor, status: KSensorStatus) {
         while (!(readLineSensor(sensor, status))) {
         }
     }
 
     //% blockId=K_Fernsteuerung_Empfaenger color="#E3008C" block="Fernsteuerung Empfänger Gruppe |%gruppe"
-    //% group="Steuerung"
-    //% weight=30
     export function empfaenger(gruppe: number) {
         let Zeit = 0
         let MotorRechts = 0
@@ -423,8 +408,6 @@ namespace Callitest {
     }
 
     //% blockId=K_Fernsteuerung_Sender color="#E3008C" block="Fernsteuerung Sender Gruppe |%gruppe| Übertragungsstärke |%staerke"
-    //% group="Steuerung"
-    //% weight=20
     export function sender(gruppe: number, staerke: number) {
         let MotorRechts = 0
         let MotorLinks = 0
@@ -461,8 +444,6 @@ namespace Callitest {
     }
 
     //% blockId=K_Fernsteuerung_Status color="#E3008C" block="Schalte Empfänger |%status"
-    //% group="Steuerung"
-    //% weight=10
     export function empfaengerStatus(status: KFunk) {
         if (status == KFunk.an) {
             KFunkAktiv = 0
