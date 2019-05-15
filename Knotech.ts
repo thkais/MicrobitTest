@@ -96,7 +96,7 @@ enum KCheck {
 }
 
 //% color="#FF0000" icon="\uf013" block="Calli:test"
-//% groups=['Motoren', 'LED', 'Sensoren', 'Warten', 'Steuerung']
+//% groups="['Motoren', 'LED', 'Sensoren', 'Warten', 'Steuerung']"
 namespace Callitest {
 
     function KInit() {
