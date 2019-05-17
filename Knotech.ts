@@ -129,10 +129,6 @@ namespace Callitest {
         }
     }
 
-    /**
-    * Schaltet die Motoren ein
-    * Geschwindigkeit = 0...100%
-    */
     //% speed.min=5 speed.max=100
     //% blockId=K_motor block="Schalte Motor |%KMotor| |%KDir| mit |%number| %"
     export function motor(nr: KMotor, direction: KDir, speed: number) {
@@ -195,7 +191,7 @@ namespace Callitest {
     }
 
     //% intensity.min=0 intensity.max=8
-    //% blockId=K_RGB_LED block="Schalte Beleuchtung |%led| Farbe|%color| Helligkeit|%intensity|"
+    //% blockId=K_RGB_LED block="Schalte Beleuchtung |%led| Farbe|%color| Helligkeit|%intensity|(0..8)"
     export function setRgbLed(led: KRgbLed, color: KRgbColor, intensity: number) {
         let tColor = 0;
         let index = 0;
