@@ -1,3 +1,4 @@
+ // V1.0.7
 let KInitialized = 0
 let KLedState = 0
 let KFunkAktiv = 0
@@ -95,8 +96,8 @@ enum KCheck {
     greaterThan
 }
 
-//% color="#FF0000" icon="\uf013" block="Calli:test"
-namespace Callitest {
+//% color="#FF0000" icon="\uf013" block="Calli:bot"
+namespace callibot_ {
 
     function KInit() {
         if (KInitialized != 1) {
@@ -111,7 +112,6 @@ namespace Callitest {
     function writeMotor(nr: KMotor, direction: KDir, speed: number) {
         let buffer = pins.createBuffer(3)
         KInit()
-        //basic.pause(10)
         buffer[1] = direction;
         buffer[2] = speed;
         switch (nr) {
@@ -152,12 +152,33 @@ namespace Callitest {
             writeMotor(nr, 0, 0);
         }
     }
+    
+    //% pos.min=0 pos.max=180
+    //% blockId=K_Servo block="Bewege Servo |%nr| auf |%pos|°"
+    export function servo(nr: KnServo, pos: number) {
+        let buffer = pins.createBuffer(2)
+        if (pos < 0) {
+            pos = 0
+        }
+        if (pos > 180) {
+            pos = 180
+        }
+        switch (nr) {
+            case KnServo.Servo1:
+                buffer[0] = 0x14;
+                break;
+            case KnServo.Servo2:
+                buffer[0] = 0x15;
+                break;
+        }
+        buffer[1] = pos
+        pins.i2cWriteBuffer(0x20, buffer)
+    }
 
     //% blockId=K_SetLed block="Schalte LED |%KSensor| |%KState"
     export function setLed(led: KMotor, state: KState) {
         let buffer = pins.createBuffer(2)
         KInit()
-        //basic.pause(10)
         buffer[0] = 0;      // SubAddress of LEDs
         //buffer[1]  Bit 0/1 = state of LEDs
         switch (led) {
@@ -198,7 +219,6 @@ namespace Callitest {
         let len = 0;
 
         KInit()
-        //basic.pause(10)
         if (intensity < 0) {
             intensity = 0;
         }
@@ -262,16 +282,15 @@ namespace Callitest {
             buffer[3] = buffer[1];
             buffer[4] = buffer[1];
         }
-        pins.i2cWriteBuffer(0x21, buffer)
-        basic.pause(10)
+        pins.i2cWriteBuffer(0x21, buffer);
+        basic.pause(10);
     }
 
     //="Liniensensor $sensor"
-    //% blockId K_readLineSensor block="Liniensensor |%sensor| |%status"
+    //% blockId K_readLineSensor color="#00C040" block="Liniensensor |%sensor| |%status"
     export function readLineSensor(sensor: KSensor, status: KSensorStatus): boolean {
         let result = false
-
-        //basic.pause(10)
+        
         let buffer = pins.i2cReadBuffer(0x21, 1);
         KInit();
         if (sensor == KSensor.links) {
@@ -301,11 +320,10 @@ namespace Callitest {
         return result
     }
 
-    //% blockId=K_entfernung block="Entfernung |%modus" blockGap=8
+    //% blockId=K_entfernung color="#00C040" block="Entfernung |%modus" blockGap=8
     export function entfernung(modus: KEinheit): number {
         let buffer = pins.i2cReadBuffer(0x21, 3)
         KInit()
-        //basic.pause(10)
         if (modus == KEinheit.mm) {
             return 256 * buffer[1] + buffer[2]
         }
@@ -381,7 +399,7 @@ namespace Callitest {
         })
         radio.setGroup(gruppe)
         while (1 == 1) {
-            if (KFunkAktiv == 0) {
+            if (KFunkAktiv == 0){
                 if (MotorLinks < 0) {
                     motor(KMotor.rechts, KDir.vorwärts, Math.abs(MotorLinks))
                 } else {
@@ -440,8 +458,8 @@ namespace Callitest {
     }
 
     //% blockId=K_Fernsteuerung_Status color="#E3008C" block="Schalte Empfänger |%status"
-    export function empfaengerStatus(status: KFunk) {
-        if (status == KFunk.an) {
+    export function empfaengerStatus(status : KFunk) {
+        if (status == KFunk.an){
             KFunkAktiv = 0
         }
         else {
