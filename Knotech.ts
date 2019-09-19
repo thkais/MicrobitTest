@@ -17,6 +17,10 @@ enum KStop {
     Bremsen
 }
 
+enum KnServo {
+   Servo1,
+   Servo2
+}
 enum KSensor {
     links,
     rechts
